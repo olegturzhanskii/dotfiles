@@ -1,0 +1,38 @@
+# NOTE:
+# Git configuration.
+#
+# This file deliberately contains no identity.
+#
+# Your name and email belong in config.local, which is never committed.
+#
+# Copy config.local.example to config.local to set them up.
+#
+# Git ignores the include below when that file does not exist.
+
+[include]
+	path = config.local
+
+# NOTE:
+# git-delta renders diffs with syntax highlighting and side-by-side navigation.
+#
+# The interactive.diffFilter line is what makes `git add -p` use it too.
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	line-numbers = true
+	syntax-theme = gruvbox-dark
+
+# NOTE:
+# zdiff3 shows the original text in a conflict, not just the two sides.
+[merge]
+	conflictStyle = zdiff3
+
+# NOTE:
+# Distinguishes moved lines from added and removed ones.
+[diff]
+	colorMoved = default

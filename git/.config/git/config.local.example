@@ -1,0 +1,17 @@
+# NOTE:
+# Local Git configuration — private, never committed.
+#
+# Copy this file to config.local in the same directory and fill it in:
+#
+#     cp ~/.config/git/config.local.example ~/.config/git/config.local
+#
+# config.local is not part of this repository and cannot be committed from it, because `stow --no-folding` makes 
+# ~/.config/git a real directory rather than a link into the repository.
+#
+# Your commit email becomes public the moment you push.
+#
+# If you would rather not publish a personal address, GitHub can give you a noreply address instead.
+
+[user]
+	name = <YOUR_NAME>
+	email = <YOUR_EMAIL>
