@@ -1,0 +1,89 @@
+#!/bin/sh
+#
+# NOTE:
+# Report what has updates available.
+#
+# Applies nothing.
+#
+# It does use the network, because "is anything newer?" cannot be answered locally.
+#
+# Ordered the way things are installed: Homebrew first, since it provides the managers below it, then each manager's
+# own layer.
+#
+# This exists because the answer is spread across six tools, not because updating needs a wrapper.
+#
+# The commands that apply updates are in docs/maintenance.md.
+
+set -u
+
+section() {
+    printf '\n%s\n' "$*"
+}
+
+section "Homebrew"
+
+if command -v brew >/dev/null 2>&1; then
+    brew update >/dev/null 2>&1 || true
+
+    outdated="$(brew outdated 2>/dev/null)"
+
+    if [ -n "$outdated" ]; then
+        printf '%s\n' "$outdated" | sed 's/^/  /'
+
+        printf '  -> brew upgrade\n'
+    else
+        printf '  up to date\n'
+    fi
+else
+    printf '  not installed\n'
+fi
+
+section "zsh plugins"
+
+printf '  zinit has no read-only check; updating is the only way to see changes\n'
+
+printf '  -> zi update --all\n'
+
+section "tmux plugins"
+
+printf '  tpm has no read-only check\n'
+
+printf '  -> prefix + U inside tmux\n'
+
+section "Neovim plugins"
+
+printf '  Lazy owns the lockfile, so this is checked from inside Neovim\n'
+
+printf '  -> :Lazy check, then :Lazy update and review the lazy-lock.json diff\n'
+
+section "Neovim tooling"
+
+printf '  -> :Mason, then U\n'
+
+section "uv tools"
+
+if command -v uv >/dev/null 2>&1; then
+    outdated="$(uv tool list --outdated 2>/dev/null | grep -v '^-' || true)"
+
+    if [ -n "$outdated" ]; then
+        printf '%s\n' "$outdated" | sed 's/^/  /'
+
+        printf '  -> uv tool upgrade --all\n'
+    else
+        printf '  up to date\n'
+    fi
+else
+    printf '  not installed\n'
+fi
+
+section "Rust"
+
+if command -v rustup >/dev/null 2>&1; then
+    rustup check 2>/dev/null | sed 's/^/  /'
+
+    printf '  -> rustup update\n'
+else
+    printf '  not installed\n'
+fi
+
+printf '\nNothing above was changed.\n'

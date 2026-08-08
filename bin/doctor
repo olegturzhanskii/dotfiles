@@ -1,0 +1,185 @@
+#!/bin/sh
+#
+# NOTE:
+# Check whether this machine matches the environment this repository declares.
+#
+# Read-only, and never touches the network.
+#
+# It answers "is this right?", not "is anything newer?" — for that, run ./bin/outdated.
+#
+# Checks run in the order the environment comes up: the machine, the tools on it, the configuration linking them, the
+# state they generate, and finally the boundaries that keep private material out of a public repository.
+#
+# Where a tool can already answer a question, it is asked rather than reimplemented.
+
+set -u
+
+REPOSITORY="$(cd "$(dirname "$0")/.." && pwd)"
+
+. "$REPOSITORY/scripts/common.sh"
+
+problems=0
+
+report() {
+    fail "$*"
+
+    problems=$((problems + 1))
+}
+
+printf 'Machine\n'
+
+if [ "$(uname -s)" = "Darwin" ]; then
+    ok "macOS $(sw_vers -productVersion)"
+else
+    report "this repository supports macOS only; this is $(uname -s)"
+fi
+
+if [ "$(uname -m)" = "arm64" ]; then
+    ok "Apple Silicon"
+else
+    report "this repository supports Apple Silicon only; this is $(uname -m)"
+fi
+
+if command -v brew >/dev/null 2>&1; then
+    ok "Homebrew at $(brew --prefix)"
+else
+    report "Homebrew is missing"
+fi
+
+printf '\nTools\n'
+
+# NOTE:
+# --no-upgrade matches what bootstrap installs with, so this asks "is every tool present?" rather than "is every tool
+# the newest version?".
+#
+# Without it an outdated formula reports as a failure, which contradicts the Brewfile naming tools rather than
+# versions.
+#
+# Use ./bin/outdated for the newer-version question.
+if command -v brew >/dev/null 2>&1; then
+    missing="$(brew bundle check --file="$REPOSITORY/Brewfile" --no-upgrade 2>&1)"
+
+    if [ -n "$missing" ]; then
+        ok "everything in Brewfile is installed"
+    else
+        report "Brewfile is not satisfied:"
+
+        printf '%s\n' "$missing" | sed 's/^/        /'
+    fi
+fi
+
+printf '\nConfiguration\n'
+
+if command -v stow >/dev/null 2>&1; then
+    pending="$(
+        stow --dir="$REPOSITORY" --no-folding --simulate --target="$HOME" $PACKAGES 2>&1 |
+            grep -E '^(LINK|MKDIR|CONFLICT)' || true
+    )"
+
+    if [ -z "$pending" ]; then
+        ok "every configuration file is linked"
+    else
+        report "configuration is not fully linked; run ./scripts/30-configuration.sh"
+
+        printf '%s\n' "$pending" | head -n 10 | sed 's/^/        /'
+    fi
+
+    # NOTE:
+    # Stow will not unfold a directory it already linked, so a folded deployment looks complete while still letting
+    # tools write into the repository.
+    #
+    # The shape has to be checked directly.
+    folded=""
+
+    for package in $PACKAGES; do
+        if [ -L "${XDG_CONFIG_HOME:-$HOME/.config}/$package" ]; then
+            folded="$folded $package"
+        fi
+    done
+
+    if [ -z "$folded" ]; then
+        ok "no folded directories; generated state cannot land here"
+    else
+        report "linked as whole directories, so tools write into this repository:$folded"
+
+        printf '        Fix: stow --delete, then ./scripts/30-configuration.sh\n'
+    fi
+else
+    report "GNU Stow is missing"
+fi
+
+printf '\nDerived state\n'
+
+if infocmp alacritty >/dev/null 2>&1; then
+    ok "terminfo knows about alacritty"
+else
+    report "TERM=alacritty will not resolve; run ./scripts/40-derived-state.sh"
+fi
+
+if command -v alacritty >/dev/null 2>&1; then
+    if alacritty migrate --dry-run 2>&1 | grep -q 'nonexistent path'; then
+        report "alacritty.toml imports a file that does not exist"
+    else
+        ok "alacritty configuration and its imports are readable"
+    fi
+fi
+
+if [ -d "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/plugins/tmux-gruvbox" ]; then
+    ok "tmux plugins are installed"
+else
+    note "tmux plugins are not installed; open tmux and press prefix + I"
+fi
+
+printf '\nPublication safety\n'
+
+# NOTE:
+# Checked on disk rather than through git: .gitignore stops these being committed, but the point is that they never
+# appear here at all.
+generated=""
+
+for path in zsh/.config/zsh/.zcompcache zsh/.config/zsh/.zsh_sessions tmux/.config/tmux/plugins; do
+    if [ -e "$REPOSITORY/$path" ]; then
+        generated="$generated $path"
+    fi
+done
+
+if [ -z "$generated" ]; then
+    ok "no machine-generated state inside the repository"
+else
+    report "machine-generated state is inside the repository:$generated"
+fi
+
+# NOTE:
+# Private files are expected to exist; what matters is that they can never be committed.
+#
+# Checked against .gitignore rather than against git, so this works before the repository exists.
+for private in Brewfile.optional git/.config/git/config.local; do
+    if ! grep -Fqx "$private" "$REPOSITORY/.gitignore"; then
+        report "$private is not in .gitignore and could be committed"
+    else
+        ok "$private cannot be committed"
+    fi
+done
+
+# NOTE:
+# Documentation may name the private Brewfile; running code must never read it.
+#
+# Comments are stripped first so that explaining the rule does not trip the check that enforces it.
+if cat "$REPOSITORY/bootstrap.sh" "$REPOSITORY"/scripts/*.sh "$REPOSITORY"/bin/outdated 2>/dev/null | sed 's/#.*//' |
+    grep -q 'Brewfile\.optional'; then
+    report "a script reads Brewfile.optional; bootstrap must never do that"
+else
+    ok "no script reads Brewfile.optional"
+fi
+
+printf '\n'
+
+if [ "$problems" -eq 0 ]; then
+    printf 'Everything checks out.\n'
+
+    exit 0
+fi
+
+printf '%s problem(s) found.\n' "$problems"
+
+exit 1
