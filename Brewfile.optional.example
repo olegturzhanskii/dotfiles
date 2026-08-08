@@ -1,0 +1,45 @@
+# NOTE:
+# Private software — a template, not a real list.
+#
+# Some of what you install says something about you: where you live, who you work for, what you are building, what you 
+# are protecting yourself against.
+#
+# None of that belongs in a public repository, even though it is not a secret in the usual sense.
+#
+# So this repository keeps a place for it that is never committed.
+#
+# Copy this file and edit your copy:
+#
+#     cp Brewfile.optional.example Brewfile.optional
+#
+# Brewfile.optional is listed in .gitignore, no public file refers to it, and bootstrap never reads it.
+#
+# Install from it yourself when you want to:
+#
+#     brew bundle install --file=Brewfile.optional
+#
+# The entries below are placeholders.
+#
+# Replace them; do not commit the result.
+
+
+# cask "<REGION_SPECIFIC_APP>"
+
+
+# cask "<VPN_OR_SECURITY_TOOL>"
+
+
+# cask "<WORK_RELATED_APP>"
+
+
+# cask "<PERSONAL_APP>"
+
+
+# brew "<PRIVATE_PROJECT_TOOLCHAIN>"
+
+
+# brew "<WORK_TOOL>"
+
+
+# brew "<DATABASE_FOR_A_SPECIFIC_PROJECT>"
+

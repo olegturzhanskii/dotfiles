@@ -1,0 +1,82 @@
+# NOTE:
+# General-purpose command-line tools I use but do not configure here.
+#
+# Nothing in this repository depends on any of them, so they are kept out of the required Brewfile and bootstrap never 
+# installs them.
+#
+# They are public because they are a genuine part of how I work, and because a list of good CLI tools is one of the 
+# more useful things a dotfiles repository can offer someone who is still assembling their own.
+#
+# Install them if you want them:
+#
+#     brew bundle install --file=Brewfile.extras
+
+
+# NOTE:
+# Searching and filtering.
+brew "fd"                   # find, with defaults you would have chosen anyway
+
+brew "jq"                   # query and reshape JSON
+
+brew "choose-rust"          # cut, but you can count fields from the right
+
+brew "sd"                   # sed for the common find-and-replace case
+
+
+# NOTE:
+# Looking at the filesystem.
+brew "tree"                 # directory tree
+
+brew "duf"                  # disk usage by filesystem, readably
+
+brew "dust"                 # disk usage by directory, as a bar chart
+
+
+# NOTE:
+# Looking at processes and the machine.
+brew "htop"                 # interactive process viewer
+
+brew "procs"                # ps with sensible defaults
+
+brew "pstree"               # the process tree
+
+brew "watch"                # rerun a command periodically
+
+
+# NOTE:
+# Networking.
+brew "gping"                # ping with a graph
+
+brew "mtr"                  # traceroute and ping combined
+
+brew "nmap"                 # port scanning
+
+brew "telnet"               # occasionally still the fastest way to poke a port
+
+
+# NOTE:
+# Development.
+brew "gh"                   # GitHub from the terminal
+
+brew "hyperfine"            # benchmark shell commands properly
+
+brew "just"                 # per-project command runner
+
+brew "golangci-lint"        # Go linter, for use outside Neovim
+
+brew "cppman"               # C++ reference in the terminal
+
+
+# NOTE:
+# Files and text.
+brew "bat-extras"           # batman, batgrep and friends, built on bat
+
+brew "midnight-commander"   # two-pane file manager
+
+
+# NOTE:
+# Recording and writing.
+brew "asciinema"            # record a terminal session as replayable text
+
+brew "jrnl"                 # plain-text journal; stores its own data locally
+

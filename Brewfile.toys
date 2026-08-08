@@ -1,0 +1,63 @@
+# NOTE:
+# Fun things.
+#
+# None of this is required, and bootstrap never installs it.
+#
+# It is here because a terminal is allowed to be enjoyable, and because someone reading a dotfiles repository deserves 
+# to find that out.
+#
+#     brew bundle install --file=Brewfile.toys
+
+
+# NOTE:
+# An aquarium in your terminal.
+brew "asciiquarium"
+
+# NOTE:
+# A bonsai tree that grows while you watch.
+#
+# Try `cbonsai -l`.
+brew "cbonsai"
+
+# NOTE:
+# The falling green characters.
+brew "cmatrix"
+
+# NOTE:
+# Speech bubbles, spoken by a cow.
+#
+# Also provides cowthink.
+#
+# `cowsay -l` lists the other animals.
+brew "cowsay"
+
+# NOTE:
+# Large letters made out of smaller letters.
+brew "figlet"
+
+# NOTE:
+# A random quotation.
+#
+# Traditionally piped into cowsay.
+brew "fortune"
+
+# NOTE:
+# Colors whatever you pipe into it.
+#
+# `fortune | cowsay | lolcat` is the canonical demonstration.
+brew "lolcat"
+
+# NOTE:
+# Pipes that wander across the screen.
+#
+# A screensaver, essentially.
+brew "pipes-sh"
+
+# NOTE:
+# A steam locomotive drives past when you mistype `ls`.
+brew "sl"
+
+# NOTE:
+# figlet with color and more fonts.
+brew "toilet"
+
