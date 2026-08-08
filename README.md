@@ -10,6 +10,12 @@ This is one person's setup, not a framework.
 
 Take whatever is useful, and expect to disagree with some of it.
 
+If you build on this, a link back to the repository would be appreciated.
+
+## What it looks like
+
+![The terminal: Alacritty, tmux, and a gruvbox prompt](docs/images/terminal.png)
+
 ## Before you start
 
 You need an Apple Silicon Mac, the Xcode Command Line Tools
