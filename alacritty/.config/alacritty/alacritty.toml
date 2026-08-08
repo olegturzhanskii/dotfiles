@@ -1,0 +1,20 @@
+[general]
+import = ["~/.config/alacritty/gruvbox_dark.toml"]
+
+[window]
+opacity = 0.9
+blur = true
+startup_mode = "Maximized"
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+size = 18.0
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[selection]
+save_to_clipboard = true
+
+[cursor]
+style = { shape = "Beam", blinking = "On" }
