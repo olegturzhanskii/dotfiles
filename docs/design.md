@@ -38,8 +38,8 @@ file is read, not what goes in it.
 `git-delta` deserves the same clarification: Git stays the source of truth for
 history, and delta only changes how a diff is drawn on screen.
 
-Removing the `[core] pager` line gives you plain Git output and changes  
-nothing else.
+Removing the `[core] pager` line gives you plain Git output and changes nothing
+else.
 
 For anything beyond that, each tool's own documentation is better than a
 summary here would be.
@@ -77,8 +77,8 @@ flowchart TD
     H --> M2["tpm"] --> P2["tmux plugins"]
     H --> M3["uv"] --> P3["uv tools"]
     H --> M4["rustup"] --> P4["Rust toolchain"]
-    T --> L["Lazy — in Neovim"] --> P5["Neovim plugins<br/>pinned by lazy-lock.json"]
-    T --> MA["Mason — in Neovim"] --> P6["Language servers<br/>formatters, linters"]
+    T --> L["Lazy — in Neovim"] --> P5["Neovim plugins, pinned by lazy-lock.json"]
+    T --> MA["Mason — in Neovim"] --> P6["Language servers, formatters, linters"]
 ```
 
 Homebrew installs the tools, including the other managers.
@@ -123,12 +123,12 @@ The cost is that adding a configuration file needs
 
 In order of preference:
 
-1. **A Homebrew package**, if Homebrew ships it — including `tpm` and `zinit`,
-   which are more often cloned by hand.
+1. **A Homebrew package**, if Homebrew ships it — including `tpm` and `zinit`, which
+   are more often cloned by hand.
 2. **A plugin manager**, if the tool has one.
 3. **A vendored file**, if one specific file is used from a much larger project.
-4. **A file written here**, if it has been modified — modifying something makes
-   it yours to maintain.
+4. **A file written here**, if it has been modified — modifying something makes it
+   yours to maintain.
 
 **This project does not use Git submodules.**
 
