@@ -71,6 +71,7 @@ fi
 printf '\nConfiguration\n'
 
 if command -v stow >/dev/null 2>&1; then
+    # shellcheck disable=SC2086  # word splitting is intended: one argument per package
     pending="$(
         stow --dir="$REPOSITORY" --no-folding --simulate --target="$HOME" $PACKAGES 2>&1 |
             grep -E '^(LINK|MKDIR|CONFLICT)' || true

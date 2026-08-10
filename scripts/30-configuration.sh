@@ -22,6 +22,7 @@ REPOSITORY="${REPOSITORY:-$(cd "$(dirname "$0")/.." && pwd)}"
 
 printf '  linking: %s\n\n' "$PACKAGES"
 
+# shellcheck disable=SC2086  # word splitting is intended: one argument per package
 stow --dir="$REPOSITORY" --no-folding --target="$HOME" --verbose $PACKAGES
 
 printf '\n'

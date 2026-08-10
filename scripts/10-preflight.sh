@@ -57,6 +57,7 @@ if command -v stow >/dev/null 2>&1; then
     # NOTE:
     # Simulating the deployment is the only reliable way to learn whether a file is in the way before anything is
     # written.
+    # shellcheck disable=SC2086  # word splitting is intended: one argument per package
     conflicts="$(
         stow --dir="$REPOSITORY" --no-folding --simulate --target="$HOME" $PACKAGES 2>&1 |
             grep -i 'conflict\|not owned' || true
