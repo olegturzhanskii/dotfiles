@@ -106,6 +106,8 @@ Only the first is installed by setup:
 brew bundle install --file=Brewfile.toys
 ```
 
+![fortune, cowsay and lolcat, the canonical demonstration](docs/images/toys.png)
+
 ## Public, private, and generated
 
 This split is the most useful idea to take from here.
