@@ -78,8 +78,7 @@ if [ "$assume_yes" -eq 0 ]; then
     read -r reply
 
     case "$reply" in
-    [Yy]*)
-        ;;
+    [Yy]*) ;;
 
     *)
         printf 'Stopped. Nothing was changed.\n'
