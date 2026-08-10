@@ -1,0 +1,50 @@
+# NOTE:
+# The checks this repository already applies to itself, run where forgetting to run them does not matter.
+#
+# Nothing here installs the environment or touches Homebrew.
+#
+# A bootstrap run would be the only test that catches a real regression, and it would depend on Homebrew's upstream
+# state, so it would fail for reasons that are not this repository's.
+
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  shell:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      # NOTE:
+      # shellcheck is already on the runner; zsh and shfmt are not.
+      - name: Install zsh and shfmt
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends zsh shfmt
+
+      # NOTE:
+      # Everything outside the zsh package is POSIX shell, which is what -s sh checks.
+      - name: shellcheck
+        run: shellcheck -s sh bootstrap.sh scripts/*.sh bin/doctor bin/outdated
+
+      - name: shfmt
+        run: shfmt -d -i 4 bootstrap.sh scripts/*.sh bin/doctor bin/outdated
+
+      # NOTE:
+      # These cannot be shellchecked, and a syntax error in any of them breaks every new shell.
+      #
+      # -n parses without executing.
+      - name: zsh syntax
+        run: |
+          zsh -n zsh/.zshenv
+          zsh -n zsh/.config/zsh/.zprofile
+          zsh -n zsh/.config/zsh/.zshrc
+          zsh -n zsh/.config/zsh/plugins.zsh
