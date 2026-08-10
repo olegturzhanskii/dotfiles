@@ -162,6 +162,8 @@ promises.
 
 [docs/maintenance.md](docs/maintenance.md) — updating.
 
+[docs/gotchas.md](docs/gotchas.md) — five things that fail confusingly, and why.
+
 [THIRD-PARTY.md](THIRD-PARTY.md) — what here is not mine.
 
 ## License
