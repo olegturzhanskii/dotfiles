@@ -153,6 +153,20 @@ That reports what is available and applies nothing.
 
 The commands that actually update things are in [docs/maintenance.md](docs/maintenance.md).
 
+## Questions this answers
+
+If you came here for one specific thing rather than for a setup.
+
+| Question | Where |
+|---|---|
+| Why does `TERM=alacritty` not resolve on macOS? | [gotchas.md](docs/gotchas.md), and [`scripts/40-derived-state.sh`](scripts/40-derived-state.sh) |
+| How do I stop tools writing into my dotfiles repository? | `stow --no-folding`, in [`scripts/30-configuration.sh`](scripts/30-configuration.sh) and [design.md](docs/design.md#where-state-lives) |
+| How do I get zsh completions for a tool that ships none? | [`plugins.zsh`](zsh/.config/zsh/plugins.zsh), where generated completions are installed as zinit plugins |
+| How do I keep completions in step with `uv tool install`? | [`plugins.zsh`](zsh/.config/zsh/plugins.zsh), driven by the receipt files `uv` writes for itself |
+| How do I keep private configuration out of a public repository? | [`Brewfile.optional.example`](Brewfile.optional.example), and the checks in [`bin/doctor`](bin/doctor) |
+| Does a `Brewfile` have to list everything I have installed? | [design.md](docs/design.md#what-belongs-in-the-brewfile) |
+| How reproducible is this without Nix, and where does reproducibility stop? | [design.md](docs/design.md#what-the-project-promises) |
+
 ## Reading further
 
 [docs/design.md](docs/design.md) — how the project is put together and what it
