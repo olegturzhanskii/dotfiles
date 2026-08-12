@@ -85,6 +85,13 @@ if (( ${+commands[brew]} )); then
 
 
     if (( ${+commands[bat]} )); then
+        # NOTE:
+        # What Midnight Commander opens on F3, so a file looks the same there as it does here.
+        #
+        # Paging is forced because a file shorter than the screen would otherwise be drawn and immediately replaced by
+        # the panels again.
+        export VIEWER="bat --paging=always"
+
         alias bat="bat -pp"
 
         alias -g -- --help="--help 2>&1 | command bat -l cmd-help"

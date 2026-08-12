@@ -69,6 +69,17 @@ brew "tealdeer"
 
 
 # NOTE:
+# mc/.config/mc/ini skins it and points F3 and F4 at bat and nvim.
+brew "midnight-commander"
+
+
+# NOTE:
+# htop/.config/htop/htoprc adds its TRANSLATED column, which is the only thing here that reports whether a running
+# process is native or under Rosetta.
+brew "htop"
+
+
+# NOTE:
 # Wired up as the pager in git/.config/git/config.
 brew "git-delta"
 

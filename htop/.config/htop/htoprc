@@ -1,0 +1,25 @@
+# NOTE:
+# htop rewrites this file whenever a setting is changed through F2, and it writes the whole file, not the lines it
+# changed.
+#
+# So only the lines that express a decision are here, and htop fills in every other default at startup.
+#
+# If you change something in the interface and want to keep it, expect the diff to be large.
+
+config_reader_min_version=3
+
+# NOTE:
+# TRANSLATED is the reason this file exists.
+#
+# It reports whether the running process is translated by Rosetta or native, which is not the same question as which
+# architectures the executable contains: /bin/sleep is a universal binary, and `arch -x86_64 /bin/sleep` shows T while
+# a plain `/bin/sleep` shows N.
+#
+# Nothing else in this environment can answer that, and `file` on the executable answers a different question.
+screen:Main=PID USER NICE STATE PERCENT_CPU PERCENT_MEM TIME TRANSLATED Command
+
+# NOTE:
+# Scheme 0 draws with the terminal's own sixteen colors, so htop is gruvbox because Alacritty is.
+#
+# The other five schemes hardcode their own colors, and none of them is gruvbox.
+color_scheme=0

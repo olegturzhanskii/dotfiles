@@ -11,7 +11,7 @@
 # This list is the single place that decides what gets linked into $HOME.
 #
 # shellcheck disable=SC2034  # read by every script that sources this file
-PACKAGES="alacritty tmux nvim bat eza git starship tealdeer zsh"
+PACKAGES="alacritty tmux nvim bat eza git htop mc starship tealdeer zsh"
 
 ok() {
     printf '  ok    %s\n' "$*"

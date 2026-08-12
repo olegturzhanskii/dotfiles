@@ -1,0 +1,44 @@
+[Midnight-Commander]
+
+# NOTE:
+# Midnight Commander rewrites this file on exit unless this is off.
+#
+# A configuration file that edits itself cannot be a symbolic link into this repository without dirtying the working
+# tree on every quit.
+#
+# With this off, the file changes only when Options > Save setup is chosen deliberately.
+auto_save_setup=false
+
+# NOTE:
+# F3 opens $VIEWER, which .zshrc points at bat, so a file looks the same here as it does in the shell.
+#
+# Shift-F3 still opens the built-in viewer, which is the one thing bat cannot do: it has a hex mode, so binary files
+# remain readable.
+use_internal_view=false
+
+# NOTE:
+# F4 opens $EDITOR, which .zshenv points at nvim.
+#
+# The built-in editor is a second editor to learn, theme and keep in step with the first.
+use_internal_edit=false
+
+# NOTE:
+# Gruvbox, from the skin file in this package.
+#
+# The stock skins are blue.
+skin=gruvbox-dark
+
+
+[Misc]
+# NOTE:
+# The same month-day order and twelve-hour clock the rest of this environment shows, from the eza alias in .zshrc and
+# the two tmux status slots.
+#
+# The weekday those use is dropped here, because it is four columns and the panels are two: with it, an 80-column
+# window leaves twelve characters for the file name and truncates UP--DIR.
+timeformat_recent=%b %-d %-I:%M %p
+
+# NOTE:
+# The year replaces the clock once a file is older than six months, which is Midnight Commander's own behavior and
+# more useful in a file manager than eza's single format, which never shows a year at all.
+timeformat_old=%b %-d  %Y

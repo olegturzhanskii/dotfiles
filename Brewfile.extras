@@ -34,8 +34,6 @@ brew "dust"                 # disk usage by directory, as a bar chart
 
 # NOTE:
 # Looking at processes and the machine.
-brew "htop"                 # interactive process viewer
-
 brew "procs"                # ps with sensible defaults
 
 brew "pstree"               # the process tree
@@ -70,8 +68,6 @@ brew "cppman"               # C++ reference in the terminal
 # NOTE:
 # Files and text.
 brew "bat-extras"           # batman, batgrep and friends, built on bat
-
-brew "midnight-commander"   # two-pane file manager
 
 
 # NOTE:
