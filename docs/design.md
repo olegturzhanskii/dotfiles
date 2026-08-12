@@ -29,8 +29,10 @@ If you are wondering where a particular kind of setting belongs, start here.
 | Keybindings, status line, tmux plugins | `tmux/.config/tmux/tmux.conf` | |
 | Editor, LSP, formatters, Neovim plugins | `nvim/.config/nvim/init.lua` | Mostly one file, as kickstart intends |
 | Diff and merge presentation | `git/.config/git/config` | |
+| Panels, and what F3 and F4 open | `mc/.config/mc/ini` | The skin is the one file that must live under `.local/share` |
+| Process columns, including Rosetta | `htop/.config/htop/htoprc` | htop rewrites this file if you change anything with F2 |
 | Which tools get installed | `Brewfile` | |
-| Colors, everywhere | six files | See [theming.md](theming.md) |
+| Colors, everywhere | eight files | See [theming.md](theming.md) |
 
 The zsh split is the part people usually ask about, and the rule is when each
 file is read, not what goes in it.

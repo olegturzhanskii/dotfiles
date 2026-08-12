@@ -5,9 +5,9 @@ requirement.
 
 ## There is no theme switcher
 
-Six tools carry the colors, and each expresses them differently.
+Eight tools carry the colors, and each expresses them differently.
 
-A script driving all six would be a small program abstracting five
+A script driving all eight would be a small program abstracting seven
 incompatible file formats, and it would break whenever any of them changed.
 
 So this page is the theme system: every place a color decision lives.
@@ -17,6 +17,8 @@ So this page is the theme system: every place a color decision lives.
 | Alacritty | `alacritty/.config/alacritty/alacritty.toml` | the `import` line |
 | bat | `bat/.config/bat/config` | `--theme`; see `bat --list-themes` |
 | eza | `eza/.config/eza/theme.yml` | replace the file; eza reads only this name |
+| Midnight Commander | `mc/.local/share/mc/skins/gruvbox-dark.ini` | the colors in it; mc reads skins only from this directory |
+| htop | `htop/.config/htop/htoprc` | `color_scheme`; 0 uses the terminal's colors, the rest hardcode their own |
 | starship | `starship/.config/starship/starship.toml` | the `palette` line |
 | tmux | `tmux/.config/tmux/tmux.conf` | the `@plugin` line naming the theme |
 | Neovim | `nvim/.config/nvim/init.lua` | the colorscheme plugin and the `colorscheme` call |
@@ -39,7 +41,7 @@ Alacritty works the same way if you keep more than one theme file beside
 
 Those two are genuinely one-line switches.
 
-The other four are not, and pretending otherwise would mean building the theme
+The other six are not, and pretending otherwise would mean building the theme
 manager this page exists to avoid.
 
 ## Getting other theme files
@@ -56,6 +58,16 @@ where it came from.
 
 The tmux and Neovim themes are plugins, so switching those means changing
 which plugin loads.
+
+The Midnight Commander skin has no collection to clone from, because it was
+written here rather than copied.
+
+Its section and key names are Midnight Commander's own skin format, and its
+colors are terminal color names, so it is gruvbox for the same reason htop is:
+Alacritty already says what those names mean.
+
+htop has no skin file at all, only the choice of one of its six built-in
+schemes.
 
 ## Light mode
 
