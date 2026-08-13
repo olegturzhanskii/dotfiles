@@ -1,10 +1,13 @@
 # When something looks broken
 
-Five things in this environment fail in a way that does not point at the
+Six things in this environment fail in a way that does not point at the
 cause.
 
 Each one is a real trap rather than a mistake in the configuration, so each
 one is written down here with the fix that is already in place.
+
+They are in the order you meet them, from the terminal opening to the shell you
+end up living in.
 
 ## `TERM=alacritty` does not resolve
 
@@ -93,6 +96,45 @@ for Terminal.app to write into.
 
 The `.gitignore` rules for generated state remain as a safety net for a folded
 deployment.
+
+## Touch ID authorizes `sudo`, but not inside tmux
+
+**Symptom.**
+
+`sudo` accepts a fingerprint in a plain terminal window and asks for a typed
+password inside tmux, with nothing said about the difference.
+
+**Cause.**
+
+The Touch ID PAM module has to reach the graphical login session to raise its
+prompt, and a process started inside tmux is not attached to that session.
+
+The attempt fails quietly, so PAM falls through to the password.
+
+**Fix.**
+
+`pam-reattach` reattaches the process first, which is the only reason it is in
+`Brewfile` when nothing here configures it.
+
+Recent macOS includes `/etc/pam.d/sudo_local` from `/etc/pam.d/sudo` and keeps
+that file across system updates, so the two lines belong there with the
+reattachment above Touch ID:
+
+```text
+auth       optional       /opt/homebrew/lib/pam/pam_reattach.so ignore_ssh
+auth       sufficient     pam_tid.so
+```
+
+Both details in the first line are local rather than universal: the path is
+the Apple Silicon Homebrew prefix, and older systems have no `sudo_local` at
+all, in which case the line goes in `/etc/pam.d/sudo` and an update will remove
+it.
+
+`ignore_ssh` matters more than it looks, because without it an SSH session
+raises a fingerprint prompt on a machine nobody is sitting at.
+
+Keep a second shell with a working `sudo` open while editing that file, since a
+malformed line there stops `sudo` working at all.
 
 ## `brew bundle check` fails on software you already have
 
