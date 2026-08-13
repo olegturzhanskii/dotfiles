@@ -51,6 +51,11 @@ brew "fzf"
 
 
 # NOTE:
+# plugins.zsh points every fzf widget at fd, because fzf's own walker does not read .gitignore.
+brew "fd"
+
+
+# NOTE:
 # EDITOR, VISUAL and MANPAGER all point at nvim.
 #
 # Its health check requires ripgrep, and its fuzzy finder greps with it.

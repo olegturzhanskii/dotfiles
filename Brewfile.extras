@@ -14,8 +14,6 @@
 
 # NOTE:
 # Searching and filtering.
-brew "fd"                   # find, with defaults you would have chosen anyway
-
 brew "jq"                   # query and reshape JSON
 
 brew "choose-rust"          # cut, but you can count fields from the right

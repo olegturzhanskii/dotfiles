@@ -267,7 +267,18 @@ unset _zinit
 
 
 if (( ${+commands[fzf]} )); then
-    export FZF_DEFAULT_OPTS="--style full --tmux"
+    export FZF_DEFAULT_OPTS="--style full --tmux" \
+           FZF_CTRL_T_OPTS="--preview 'fzf-preview.sh {}' --preview-window '<80(down)'"
+
+    if (( ${+commands[fd]} )); then
+        typeset _fd_command="fd -E .git -H"
+
+        export FZF_DEFAULT_COMMAND="$_fd_command -t f" \
+               FZF_CTRL_T_COMMAND="$_fd_command" \
+               FZF_ALT_C_COMMAND="$_fd_command -t d"
+
+        unset _fd_command
+    fi
 
     source <(fzf --zsh)
 fi
