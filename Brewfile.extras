@@ -56,6 +56,8 @@ brew "gh"                   # GitHub from the terminal
 
 brew "hyperfine"            # benchmark shell commands properly
 
+brew "watchexec"            # rerun a command when files change
+
 brew "just"                 # per-project command runner
 
 brew "golangci-lint"        # Go linter, for use outside Neovim
