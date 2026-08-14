@@ -56,6 +56,11 @@ brew "fd"
 
 
 # NOTE:
+# plugins.zsh hooks it into the shell so a project can set and unset its own environment on the way in and out.
+brew "direnv"
+
+
+# NOTE:
 # EDITOR, VISUAL and MANPAGER all point at nvim.
 #
 # Its health check requires ripgrep, and its fuzzy finder greps with it.

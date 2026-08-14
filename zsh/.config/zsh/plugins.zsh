@@ -287,6 +287,18 @@ if (( ${+commands[zoxide]} )); then
     eval "$(zoxide init zsh)"
 fi
 
+# NOTE:
+# Per-project environment, and nothing more.
+#
+# An .envrc applies its exports when you enter the directory and removes them again when you leave, which is the part
+# no global configuration can do.
+#
+# It is not here to choose toolchain versions: rustup reads rust-toolchain.toml and uv reads .python-version, and both
+# already do that on their own.
+if (( ${+commands[direnv]} )); then
+    eval "$(direnv hook zsh)"
+fi
+
 if (( ${+commands[starship]} )); then
     typeset _starship_configuration_file="$XDG_CONFIG_HOME/starship/starship.toml"
 
