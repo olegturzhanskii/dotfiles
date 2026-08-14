@@ -167,6 +167,7 @@ If you came here for one specific thing rather than for a setup.
 | How do I keep completions in step with `uv tool install`? | [`plugins.zsh`](zsh/.config/zsh/plugins.zsh), driven by the receipt files `uv` writes for itself |
 | How do I edit a file on another machine without mounting it? | [`mc/.config/mc/ini`](mc/.config/mc/ini); mc opens `sftp://` in a panel, and F3 and F4 still run the local `bat` and `nvim` |
 | Is this process running under Rosetta, or natively? | [`htop/.config/htop/htoprc`](htop/.config/htop/htoprc), which adds htop's `TRANSLATED` column |
+| How do I get a structural diff without giving up delta? | [`git/.config/git/config`](git/.config/git/config); delta stays the pager and difftastic is the difftool |
 | How do I keep private configuration out of a public repository? | [`Brewfile.optional.example`](Brewfile.optional.example), and the checks in [`bin/doctor`](bin/doctor) |
 | Does a `Brewfile` have to list everything I have installed? | [design.md](docs/design.md#what-belongs-in-the-brewfile) |
 | How reproducible is this without Nix, and where does reproducibility stop? | [design.md](docs/design.md#what-the-project-promises) |
