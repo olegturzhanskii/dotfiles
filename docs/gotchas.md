@@ -61,7 +61,7 @@ Delete the deployment first, then make it again.
 
 ```sh
 stow --delete --dir=~/dotfiles --target=~ \
-  alacritty tmux nvim bat eza git starship tealdeer zsh
+  alacritty tmux nvim bat eza git htop mc starship tealdeer zsh
 
 ./scripts/30-configuration.sh
 ```
@@ -116,9 +116,12 @@ The attempt fails quietly, so PAM falls through to the password.
 `pam-reattach` reattaches the process first, which is the only reason it is in
 `Brewfile` when nothing here configures it.
 
-Recent macOS includes `/etc/pam.d/sudo_local` from `/etc/pam.d/sudo` and keeps
-that file across system updates, so the two lines belong there with the
-reattachment above Touch ID:
+`/etc/pam.d/sudo` belongs to Apple and a system update can replace it, which is
+why recent macOS ends that file with an `include` of `/etc/pam.d/sudo_local`.
+
+The second file is the one meant for local additions and the one an update
+leaves alone, so the two lines belong there, with the reattachment above Touch
+ID:
 
 ```text
 auth       optional       /opt/homebrew/lib/pam/pam_reattach.so ignore_ssh
