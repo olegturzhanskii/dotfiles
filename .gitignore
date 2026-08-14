@@ -36,6 +36,14 @@ zsh/.config/zsh/.zcompdump*
 
 
 # NOTE:
+# htop's search and filter history.
+#
+# This one is not covered by the note above: htop resolves the symbolic link to htoprc and writes its history beside
+# the real file, so it lands here in normal use rather than only after a mistake.
+htop/.config/htop/htop_history
+
+
+# NOTE:
 # Neovim runtime state.
 # 
 # lazy-lock.json is deliberately NOT ignored: it is the only place where exact plugin versions are recorded.
