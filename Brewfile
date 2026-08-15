@@ -95,6 +95,11 @@ brew "git-delta"
 
 
 # NOTE:
+# The same file sets it as diff.tool, so `git difftool` compares syntax trees while `git diff` keeps using delta.
+brew "difftastic"
+
+
+# NOTE:
 # .zprofile puts llvm on PATH; .zshrc aliases clang, clang-format and gcc.
 brew "llvm"
 
