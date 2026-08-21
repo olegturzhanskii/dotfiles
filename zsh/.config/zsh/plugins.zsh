@@ -1,6 +1,19 @@
 typeset _zinit="$HOMEBREW_PREFIX/opt/zinit/zinit.zsh"
 
 if [[ -f "$_zinit" ]]; then
+    # NOTE:
+    # zinit aliases zi, zpl, zplg and zini to itself, and zi is the one that matters: zoxide gives the same name to 
+    # its interactive jump, and an alias is expanded before a function is looked up, so zinit wins and zoxide's is
+    # unreachable.
+    #
+    # zinit reads this while being sourced and merges an existing ZINIT array rather than replacing it, so it has to 
+    # be set first.
+    #
+    # Everything below therefore calls zinit by its full name.
+    typeset -gA ZINIT
+
+    ZINIT[NO_ALIASES]=1
+
     source "$_zinit"
 
     typeset _zsh_cache_directory="$XDG_CACHE_HOME/zsh"
@@ -53,7 +66,7 @@ if [[ -f "$_zinit" ]]; then
             atclone'
                 cp -f "${ZINIT[PLUGINS_DIR]}/zsh-users---zsh-completions/src/_golang" _golang
 
-                zi creinstall .
+                zinit creinstall .
             ' \
             atinit'
                 typeset -Agr _GO_COMPLETION_PLUGIN=(
@@ -75,11 +88,11 @@ if [[ -f "$_zinit" ]]; then
                 }
 
                 _update_go_completions() {
-                    zi update zsh-users/zsh-completions
+                    zinit update zsh-users/zsh-completions
 
                     _retrieve_go_completions
 
-                    zi creinstall "${_GO_COMPLETION_PLUGIN[DIRECTORY]}"
+                    zinit creinstall "${_GO_COMPLETION_PLUGIN[DIRECTORY]}"
                 }
             ' \
             atload"_retrieve_go_completions" \
@@ -95,7 +108,7 @@ if [[ -f "$_zinit" ]]; then
 
                 rustup completions zsh cargo >! _cargo
 
-                zi creinstall .
+                zinit creinstall .
             ' \
             atinit'
                 typeset -Agr _RUSTUP_COMPLETION_PLUGIN=(
@@ -113,7 +126,7 @@ if [[ -f "$_zinit" ]]; then
                 _update_rustup_completions() {
                     _generate_rustup_completions
 
-                    zi creinstall "${_RUSTUP_COMPLETION_PLUGIN[DIRECTORY]}"
+                    zinit creinstall "${_RUSTUP_COMPLETION_PLUGIN[DIRECTORY]}"
                 }
             ' \
             atload'
@@ -203,7 +216,7 @@ if [[ -f "$_zinit" ]]; then
                     done
 
                     if (( changed )); then
-                        zi creinstall "$plugin_directory"
+                        zinit creinstall "$plugin_directory"
                     fi
                 }
 
