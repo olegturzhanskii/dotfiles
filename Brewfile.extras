@@ -43,6 +43,10 @@ brew "watch"                # rerun a command periodically
 # Networking.
 brew "gping"                # ping with a graph
 
+brew "ipcalc"               # subnet arithmetic without doing it in your head
+
+brew "magic-wormhole.rs"    # send a file to another machine with a spoken code; the command is wormhole-rs
+
 brew "mtr"                  # traceroute and ping combined
 
 brew "nmap"                 # port scanning
@@ -60,6 +64,8 @@ brew "watchexec"            # rerun a command when files change
 
 brew "just"                 # per-project command runner
 
+brew "lazydocker"           # a terminal UI for containers, when there are containers
+
 brew "golangci-lint"        # Go linter, for use outside Neovim
 
 brew "cppman"               # C++ reference in the terminal
@@ -69,10 +75,18 @@ brew "cppman"               # C++ reference in the terminal
 # Files and text.
 brew "bat-extras"           # batman, batgrep and friends, built on bat
 
+brew "moreutils"            # sponge, ts, vipe and friends; its parallel collides with GNU parallel
+
+brew "unp"                  # unpack anything without remembering which flags
+
 
 # NOTE:
 # Recording and writing.
 brew "asciinema"            # record a terminal session as replayable text
 
+brew "agg"                  # turn one of those recordings into a gif
+
 brew "jrnl"                 # plain-text journal; stores its own data locally
+
+brew "taskwarrior-tui"      # a front end for taskwarrior, which Brewfile declares
 
