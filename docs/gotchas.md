@@ -61,7 +61,7 @@ Delete the deployment first, then make it again.
 
 ```sh
 stow --delete --dir=~/dotfiles --target=~ \
-  alacritty tmux nvim bat eza git htop mc starship tealdeer zsh
+  alacritty tmux nvim bat eza git htop mc starship task tealdeer zsh
 
 ./scripts/30-configuration.sh
 ```

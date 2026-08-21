@@ -1,0 +1,18 @@
+# NOTE:
+# The existence of this file is the prerequisite.
+#
+# Both task and taskwarrior-tui refuse to start without one, and neither writes it for you outside an interactive
+# prompt, so an empty file would already be enough to make them run.
+
+# NOTE:
+# Taskwarrior defaults its database to ~/.task even when XDG_DATA_HOME is set, which is the one place in this
+# environment that generated state is not supposed to land.
+data.location=~/.local/share/task
+
+# NOTE:
+# Anything naming a real project, client or employer belongs in a local file rather than here:
+#
+#     include ~/.config/task/taskrc.local
+#
+# Add that line at the same time as the file, because taskwarrior treats a missing include as an error rather than
+# skipping it the way Git does.

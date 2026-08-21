@@ -36,6 +36,15 @@ zsh/.config/zsh/.zcompdump*
 
 
 # NOTE:
+# Local taskwarrior configuration.
+#
+# Never commit this.
+#
+# Project and client names belong here rather than in the tracked taskrc.
+task/.config/task/taskrc.local
+
+
+# NOTE:
 # htop's search and filter history.
 #
 # This one is not covered by the note above: htop resolves the symbolic link to htoprc and writes its history beside

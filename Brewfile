@@ -90,6 +90,11 @@ brew "htop"
 
 
 # NOTE:
+# task/.config/task/taskrc is what makes it start at all, and what keeps its database under XDG.
+brew "task"
+
+
+# NOTE:
 # Wired up as the pager in git/.config/git/config.
 brew "git-delta"
 
