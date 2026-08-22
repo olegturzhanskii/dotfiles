@@ -42,7 +42,7 @@ section "zsh plugins"
 
 printf '  zinit has no read-only check; updating is the only way to see changes\n'
 
-printf '  -> zi update --all\n'
+printf '  -> zinit update --all\n'
 
 section "tmux plugins"
 

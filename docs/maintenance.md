@@ -42,7 +42,7 @@ below it.
 |---|---|
 | Homebrew itself | `brew update && brew upgrade` |
 | Check tools still match `Brewfile` | `brew bundle check --file=Brewfile` |
-| zsh plugins | `zi update --all` |
+| zsh plugins | `zinit update --all` |
 | tmux plugins | `prefix + U` inside tmux |
 | Neovim tooling | `:Mason`, then `U` |
 | uv tools | `uv tool upgrade --all` |
@@ -52,7 +52,10 @@ below it.
 
 `Brewfile` names tools, not versions, so upgrading never makes it stale.
 
-`zi update --all` is the only thing that fetches a new Go completion
+zinit is spelled in full because its `zi` alias is turned off in [`plugins.zsh`](../zsh/.config/zsh/plugins.zsh),
+so that `zi` still means zoxide's interactive jump.
+
+`zinit update --all` is the only thing that fetches a new Go completion
 definition.
 
 Opening a shell never does.
