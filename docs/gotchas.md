@@ -1,6 +1,6 @@
 # When something looks broken
 
-Six things in this environment fail in a way that does not point at the
+Seven things in this environment fail in a way that does not point at the
 cause.
 
 Each one is a real trap rather than a mistake in the configuration, so each
@@ -138,6 +138,50 @@ raises a fingerprint prompt on a machine nobody is sitting at.
 
 Keep a second shell with a working `sudo` open while editing that file, since a
 malformed line there stops `sudo` working at all.
+
+## A restored pane shows a program that is not running
+
+**Symptom.**
+
+After a restart a pane shows Midnight Commander — the menu bar, both panels,
+the function-key row — and none of it responds.
+
+The shell prompt is on the last line, underneath the picture.
+
+**Cause.**
+
+Two settings in [`tmux.conf`](../tmux/.config/tmux/tmux.conf) meeting.
+
+`@resurrect-capture-pane-contents` writes each pane's saved screen back into the
+pane, so a full-screen program leaves a convincing photograph behind.
+
+`@resurrect-processes` decides what is then relaunched on top of it, and an
+entry without a leading tilde has to match the *start* of the command line tmux
+recorded.
+
+Homebrew's `mc` is a wrapper that execs `libexec/bin/mc`, so that path is what
+gets recorded and a plain `"mc"` never matches it.
+
+Nothing reports the miss, and the photograph is what makes it look like a
+success.
+
+**Fix.**
+
+`'"~bin/mc->mc"'`, where all three layers of quoting are doing something.
+
+The single quotes stop tmux expanding the leading tilde as a home directory,
+which is a syntax error for a user named `bin` and discards the whole line.
+
+The inner double quotes survive into the shell `eval` that resurrect splits the
+list with, where a bare `->` would be read as a redirection and would quietly
+create a file called `mc` in whatever directory tmux was started from.
+
+The tilde makes the match a substring one, and the arrow gives the command to
+run, so the pane calls `mc` by name rather than the versioned Cellar path that
+was saved.
+
+Any program not on that list keeps the trap, so press a key in a restored pane
+before believing it.
 
 ## `brew bundle check` fails on software you already have
 
