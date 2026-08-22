@@ -14,6 +14,9 @@ auto_save_setup=false
 #
 # Shift-F3 still opens the built-in viewer, which is the one thing bat cannot do: it has a hex mode, so binary files
 # remain readable.
+#
+# Ctrl-x q is a third thing again and this setting does not reach it: quick view draws inside a panel, so it can only
+# use the built-in viewer, which has no syntax highlighting and cannot be given any.
 use_internal_view=false
 
 # NOTE:
