@@ -163,8 +163,10 @@ If you came here for one specific thing rather than for a setup.
 |---|---|
 | Why does `TERM=alacritty` not resolve on macOS? | [gotchas.md](docs/gotchas.md), and [`scripts/40-derived-state.sh`](scripts/40-derived-state.sh) |
 | How does copying in the terminal reach the macOS clipboard, even inside tmux or over SSH? | [`tmux.conf`](tmux/.config/tmux/tmux.conf) turns on `set-clipboard` and the `clipboard` terminal feature, which is OSC 52 |
+| Which programs come back after a tmux restart, and which only look like they did? | [gotchas.md](docs/gotchas.md), and the `@resurrect-processes` note in [`tmux.conf`](tmux/.config/tmux/tmux.conf) |
 | Why does the Option key not work as Alt? | [`alacritty.toml`](alacritty/.config/alacritty/alacritty.toml); without `option_as_alt` nothing in the terminal ever receives Meta |
 | How do I stop tools writing into my dotfiles repository? | `stow --no-folding`, in [`scripts/30-configuration.sh`](scripts/30-configuration.sh) and [design.md](docs/design.md#where-state-lives) |
+| Which of these files does its own tool rewrite? | [design.md](docs/design.md#configuration-that-writes-back); five of them, and only one has a switch that stops it |
 | How do I get zsh completions for a tool that ships none? | [`plugins.zsh`](zsh/.config/zsh/plugins.zsh), where generated completions are installed as zinit plugins |
 | How do I keep completions in step with `uv tool install`? | [`plugins.zsh`](zsh/.config/zsh/plugins.zsh), driven by the receipt files `uv` writes for itself |
 | How do I edit a file on another machine without mounting it? | [`mc/.config/mc/ini`](mc/.config/mc/ini); mc opens `sftp://` in a panel, and F3 and F4 still run the local `bat` and `nvim` |
