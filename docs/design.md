@@ -123,6 +123,28 @@ Linking file by file means generated state has nowhere to land here.
 The cost is that adding a configuration file needs
 `./scripts/30-configuration.sh` run again.
 
+## Configuration that writes back
+
+A symbolic link is not one-way, and five tracked files here are written by the
+tool that reads them.
+
+| File | What writes it |
+|---|---|
+| `mc/.config/mc/ini` | Midnight Commander, on exit |
+| `htop/.config/htop/htoprc` | htop, whenever F2 changes anything |
+| `lazygit/.config/lazygit/config.yml` | lazygit, when a setting is renamed upstream |
+| `task/.config/task/taskrc` | `task config` and `task context define` |
+| `nvim/.config/nvim/lazy-lock.json` | Lazy, on every plugin update |
+
+Only the first has a switch that stops it, and it is set.
+
+The last is the point of the file rather than a surprise, and [maintenance.md](maintenance.md)
+is about reading that diff.
+
+For the middle three the answer is to notice: `git status` after one of those
+commands is the check, and the taskrc is the one where the change can also be
+something that should not be public.
+
 ## How other people's work is represented
 
 In order of preference:
