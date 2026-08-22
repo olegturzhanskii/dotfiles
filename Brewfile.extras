@@ -70,6 +70,10 @@ brew "lazydocker"           # a terminal UI for containers, when there are conta
 
 brew "golangci-lint"        # Go linter, for use outside Neovim
 
+brew "shellcheck"           # shell linter, for use outside Neovim; the checks workflow runs it too
+
+brew "shfmt"                # shell formatter, and the other half of that workflow
+
 brew "cppman"               # C++ reference in the terminal
 
 
