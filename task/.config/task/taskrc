@@ -16,3 +16,9 @@ data.location=~/.local/share/task
 #
 # Add that line at the same time as the file, because taskwarrior treats a missing include as an error rather than
 # skipping it the way Git does.
+#
+# Keeping to that is manual: `task config` and `task context define` append to whichever file taskwarrior read, which
+# is this one, so a context named after a real client has to be moved into the local file by hand.
+#
+# taskwarrior-tui has no configuration file of its own and reads uda.taskwarrior-tui.* keys from here, so the same
+# applies to anything it is told to run.
