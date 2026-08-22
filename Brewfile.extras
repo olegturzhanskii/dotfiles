@@ -92,7 +92,7 @@ brew "asciinema"            # record a terminal session as replayable text
 
 brew "agg"                  # turn one of those recordings into a gif
 
-brew "jrnl"                 # plain-text journal; stores its own data locally
+brew "jrnl"                 # plain-text journal; an entry typed as an argument lands in your shell history
 
 brew "taskwarrior-tui"      # a front end for taskwarrior, which Brewfile declares
 
