@@ -32,6 +32,8 @@ brew "dust"                 # disk usage by directory, as a bar chart
 
 # NOTE:
 # Looking at processes and the machine.
+brew "fastfetch"            # what this machine is; its default output includes your local IP
+
 brew "procs"                # ps with sensible defaults
 
 brew "pstree"               # the process tree
