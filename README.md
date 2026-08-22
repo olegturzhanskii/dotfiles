@@ -16,6 +16,13 @@ If you build on this, a link back to the repository would be appreciated.
 
 ![The terminal: Alacritty, tmux, and a gruvbox prompt](docs/images/terminal.png)
 
+That is the environment sitting still.
+
+This is what it does when you press a key: `Ctrl-T` opens fzf in a tmux popup,
+`fd` supplies the list, and `bat` draws the preview.
+
+![Ctrl-T: fzf in a tmux popup, listed by fd and previewed by bat](docs/images/completion.gif)
+
 ## Before you start
 
 You need an Apple Silicon Mac, the Xcode Command Line Tools
