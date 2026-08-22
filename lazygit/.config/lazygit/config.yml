@@ -1,0 +1,35 @@
+# NOTE:
+# lazygit rewrites this file when a setting it reads has been renamed upstream, and it writes through the symbolic 
+# link rather than replacing it.
+#
+# Nothing turns that off, so a diff here after an upgrade is a real migration to read and keep, not a file dirtying
+# itself the way Midnight Commander's does.
+#
+# lazygit also looks for this file in ~/.config regardless of XDG_CONFIG_HOME, which is the same path only because
+# .zshenv sets that variable to the same place.
+# NOTE:
+# lazygit draws its own diffs and never reads Git's core.pager, so without this the Git front end would be the one
+# place in this environment that shows a diff without delta.
+#
+# delta reads the [delta] section of git/.config/git/config by itself, so the line numbers, the gruvbox syntax theme
+# and the moved-line colors arrive here without being repeated.
+#
+# Paging has to be off, because lazygit is the pager.
+#
+# This reaches the main panel only: the staging view, where individual hunks and lines are chosen, is drawn from raw
+# git output and cannot be filtered.
+#
+# difftastic is deliberately not a second renderer, because ctrl-t already runs `git difftool`, which the same Git
+# configuration has already pointed at it.
+git:
+  diffRenderers:
+    - name: delta
+      type: stdinFilter
+      command: delta --paging=never
+# NOTE:
+# Brewfile installs the Nerd Font that alacritty.toml names, so the icons are certain to be there.
+#
+# lazygit hides them by default because it cannot know that; the eza alias in .zshrc makes the same assumption for the
+# same reason.
+gui:
+  nerdFontsVersion: "3"

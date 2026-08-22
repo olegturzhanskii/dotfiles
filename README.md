@@ -73,7 +73,7 @@ Every file it creates is a symbolic link:
 
 ```sh
 stow --delete --dir=~/dotfiles --target=~ \
-  alacritty tmux nvim bat eza git htop mc starship task tealdeer zsh
+  alacritty tmux nvim bat eza git htop lazygit mc starship task tealdeer zsh
 ```
 
 Tools that Homebrew installed stay installed.

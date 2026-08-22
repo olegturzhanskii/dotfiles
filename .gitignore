@@ -34,6 +34,11 @@ zsh/.config/zsh/.zsh_sessions/
 
 zsh/.config/zsh/.zcompdump*
 
+# NOTE:
+# This one is worth more than tidiness: lazygit's state file records the path of every repository you have opened in
+# it, which is exactly the kind of thing Brewfile.optional exists to keep out of a public repository.
+lazygit/.config/lazygit/state.yml
+
 
 # NOTE:
 # Local taskwarrior configuration.

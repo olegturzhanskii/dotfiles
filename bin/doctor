@@ -147,7 +147,8 @@ printf '\nPublication safety\n'
 # appear here at all.
 generated=""
 
-for path in zsh/.config/zsh/.zcompcache zsh/.config/zsh/.zsh_sessions tmux/.config/tmux/plugins; do
+for path in zsh/.config/zsh/.zcompcache zsh/.config/zsh/.zsh_sessions tmux/.config/tmux/plugins \
+    lazygit/.config/lazygit/state.yml; do
     if [ -e "$REPOSITORY/$path" ]; then
         generated="$generated $path"
     fi

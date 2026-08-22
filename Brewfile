@@ -105,6 +105,11 @@ brew "difftastic"
 
 
 # NOTE:
+# lazygit/.config/lazygit/config.yml renders its diffs through delta, and ctrl-t inside it runs the difftool above.
+brew "lazygit"
+
+
+# NOTE:
 # .zprofile puts llvm on PATH; .zshrc aliases clang, clang-format and gcc.
 brew "llvm"
 

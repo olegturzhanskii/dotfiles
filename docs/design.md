@@ -29,6 +29,7 @@ If you are wondering where a particular kind of setting belongs, start here.
 | Keybindings, status line, tmux plugins | `tmux/.config/tmux/tmux.conf` | |
 | Editor, LSP, formatters, Neovim plugins | `nvim/.config/nvim/init.lua` | Mostly one file, as kickstart intends |
 | Diff and merge presentation | `git/.config/git/config` | |
+| The Git terminal UI, and what draws its diffs | `lazygit/.config/lazygit/config.yml` | It draws its own diffs and never reads Git's pager |
 | Panels, and what F3 and F4 open | `mc/.config/mc/ini` | The skin is the one file that must live under `.local/share` |
 | Process columns, including Rosetta | `htop/.config/htop/htoprc` | htop rewrites this file if you change anything with F2 |
 | Where the task list is kept | `task/.config/task/taskrc` | Taskwarrior ignores XDG for its database unless told |
