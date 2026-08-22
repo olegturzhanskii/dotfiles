@@ -56,25 +56,34 @@ printf '\nTools\n'
 # versions.
 #
 # Use ./bin/outdated for the newer-version question.
+#
+# The answer is the exit status, not the output: `brew bundle check` prints a sentence either way, so testing what it
+# printed reports success whatever it found.
+#
+# HOMEBREW_NO_AUTO_UPDATE is what keeps this offline, because a plain `brew` command refreshes its package data first.
 if command -v brew >/dev/null 2>&1; then
-    missing="$(brew bundle check --file="$REPOSITORY/Brewfile" --no-upgrade 2>&1)"
-
-    if [ -n "$missing" ]; then
+    if HOMEBREW_NO_AUTO_UPDATE=1 brew bundle check --file="$REPOSITORY/Brewfile" --no-upgrade >/dev/null 2>&1; then
         ok "everything in Brewfile is installed"
     else
-        report "Brewfile is not satisfied:"
+        report "Brewfile is not satisfied; run ./scripts/20-packages.sh"
 
-        printf '%s\n' "$missing" | sed 's/^/        /'
+        HOMEBREW_NO_AUTO_UPDATE=1 brew bundle check --file="$REPOSITORY/Brewfile" --no-upgrade --verbose 2>&1 |
+            sed 's/^/        /'
     fi
 fi
 
 printf '\nConfiguration\n'
 
 if command -v stow >/dev/null 2>&1; then
+    # NOTE:
+    # --verbose is what makes the plan visible: without it Stow prints nothing for the links it would make, so
+    # grepping its output finds nothing whether the deployment is complete or empty.
+    #
+    # A conflict is an indented "cannot stow" line rather than the word CONFLICT, which is what older Stow printed.
     # shellcheck disable=SC2086  # word splitting is intended: one argument per package
     pending="$(
-        stow --dir="$REPOSITORY" --no-folding --simulate --target="$HOME" $PACKAGES 2>&1 |
-            grep -E '^(LINK|MKDIR|CONFLICT)' || true
+        stow --dir="$REPOSITORY" --no-folding --simulate --verbose --target="$HOME" $PACKAGES 2>&1 |
+            grep -E '^(LINK|MKDIR|  \* cannot)' || true
     )"
 
     if [ -z "$pending" ]; then
