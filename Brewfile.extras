@@ -83,6 +83,9 @@ brew "bat-extras"           # batman, batgrep and friends, built on bat
 
 brew "moreutils"            # sponge, ts, vipe and friends; its parallel collides with GNU parallel
 
+brew "coreutils"            # the GNU tools macOS has no version of: timeout, nproc, numfmt, shuf, tac; the rest are 
+			    # g-prefixed
+
 brew "unp"                  # unpack anything without remembering which flags
 
 
