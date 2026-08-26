@@ -20,7 +20,16 @@ if [[ -f "$_zinit" ]]; then
 
     mkdir -p "$_zsh_cache_directory"
 
-    ZINIT[COMPINIT_OPTS]="-C -d $_zsh_cache_directory/zcompdump"
+    # NOTE:
+    # No -C.
+    #
+    # -C tells compinit to trust the dump file and skip looking for completion functions it does not already know
+    # about, which means the completion set freezes on the day the dump was written: every tool installed afterwards
+    # has a completion on fpath that Tab never finds.
+    #
+    # It is not even an optimization here, because compinit runs after the first prompt in the turbo block below, and
+    # dropping the flag measured no slower.
+    ZINIT[COMPINIT_OPTS]="-d $_zsh_cache_directory/zcompdump"
 
     unset _zsh_cache_directory
 
