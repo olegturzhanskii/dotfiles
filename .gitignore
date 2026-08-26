@@ -58,6 +58,18 @@ htop/.config/htop/htop_history
 
 
 # NOTE:
+# Midnight Commander's history and editor state.
+#
+# ~/.local/share/mc is a stow target directory, so with --no-folding these stay outside the repository; the rules are
+# the safety net.
+#
+# The history file is the one that matters: it records typed commands, search strings and visited directories.
+mc/.local/share/mc/history
+
+mc/.local/share/mc/mcedit/
+
+
+# NOTE:
 # Neovim runtime state.
 # 
 # lazy-lock.json is deliberately NOT ignored: it is the only place where exact plugin versions are recorded.
