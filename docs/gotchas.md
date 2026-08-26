@@ -1,6 +1,6 @@
 # When something looks broken
 
-Seven things in this environment fail in a way that does not point at the
+Eight things in this environment fail in a way that does not point at the
 cause.
 
 Each one is a real trap rather than a mistake in the configuration, so each
@@ -182,6 +182,63 @@ was saved.
 
 Any program not on that list keeps the trap, so press a key in a restored pane
 before believing it.
+
+## SSH works in one terminal and not in another
+
+**Symptom.**
+
+A `git fetch` over SSH succeeds in the terminal where you set things up and
+fails with `Permission denied (publickey)` in a tmux pane, or in every shell
+after a reboot, and for some remotes but not others.
+
+**Cause.**
+
+Two separate things that arrive looking like one.
+
+The agent macOS provides is empty until something puts a key in it, and
+`ssh-add -l` answers `The agent has no identities` for every shell at once,
+because they all share the one agent.
+
+tmux is not involved.
+
+`SSH_AUTH_SOCK` is in tmux's `update-environment`, so an attaching client
+refreshes it, and `tmux show-environment SSH_AUTH_SOCK` names a socket that
+exists.
+
+What makes tmux look guilty is that a tmux session outlives the agent: you add
+a key, it works, you reboot, continuum brings the panes back, and the key is
+gone.
+
+The "some remotes and not others" half is a different problem again.
+
+With more than one key on disk and no `~/.ssh/config`, ssh offers them in a
+fixed order and can exhaust the server's `MaxAuthTries` before it reaches the
+right one.
+
+**Fix.**
+
+Not here.
+
+`~/.ssh/config` names hosts, accounts and key files, which is the same class of
+thing `Brewfile.optional` and `git/config.local` exist to keep out of a public
+repository, so it stays yours the way `/etc/pam.d/sudo_local` does.
+
+Two lines under `Host *` are what stop the agent being empty:
+
+```text
+AddKeysToAgent yes
+UseKeychain yes
+```
+
+`UseKeychain` is the Apple half, documented in `ssh_config(5)` on this system: it
+takes the passphrase from the login keychain instead of asking for it.
+
+Add each key once with `ssh-add --apple-use-keychain` and it survives a reboot.
+
+For the second half, give each host an explicit `IdentityFile` and
+`IdentitiesOnly yes`, so ssh stops guessing.
+
+`ssh-add -l` is the check, and it answers for every shell at once.
 
 ## `brew bundle check` fails on software you already have
 
