@@ -235,8 +235,27 @@ takes the passphrase from the login keychain instead of asking for it.
 
 Add each key once with `ssh-add --apple-use-keychain` and it survives a reboot.
 
-For the second half, give each host an explicit `IdentityFile` and
-`IdentitiesOnly yes`, so ssh stops guessing.
+The second half is per host, and `IdentitiesOnly yes` is the load-bearing part
+of it: without it ssh offers every key the agent holds before the one you
+named, which is what runs the server out of attempts.
+
+One identity per host needs nothing clever, just a `Host` block naming the key.
+
+Two identities on the *same* host cannot be told apart by host name, so the
+identity has to be chosen by a name you invent:
+
+```text
+Host <alias>
+  HostName <the real host>
+  User git
+  IdentityFile ~/.ssh/<key>
+  IdentitiesOnly yes
+```
+
+The remote then uses the alias instead of the real host, and that is what
+picks the key.
+
+A host you only ever reach with one identity needs none of this.
 
 `ssh-add -l` is the check, and it answers for every shell at once.
 
