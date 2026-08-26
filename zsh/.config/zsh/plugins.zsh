@@ -56,6 +56,17 @@ if [[ -f "$_zinit" ]]; then
             wait"0c" \
                 zsh-users/zsh-autosuggestions
 
+    # NOTE:
+    # The rule for completions here, because the machinery below looks more general than it is.
+    #
+    # .zshrc puts Homebrew's site-functions first on fpath, so any tool that ships a zsh completion is already
+    # complete and needs nothing: task, taskwarrior-tui, delta, fd, eza, bat, zoxide, starship, ripgrep, just,
+    # hyperfine, watchexec, procs, dust, fastfetch, tealdeer, uv and rustup all arrive that way.
+    #
+    # What follows is only for the three gaps Homebrew cannot fill: Go ships no completion at all, rustup ships one
+    # for itself but none for cargo, and no package can know which tools uv has installed.
+    #
+    # Before adding a fourth, check whether $HOMEBREW_PREFIX/share/zsh/site-functions already has it.
     typeset _go_completion_file="${ZINIT[PLUGINS_DIR]}/zsh-users---zsh-completions/src/_golang" 
 
     zinit \
