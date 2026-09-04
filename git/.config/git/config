@@ -48,3 +48,15 @@
 
 [difftool "difftastic"]
 	cmd = difft "$LOCAL" "$REMOTE"
+
+# NOTE:
+# Verifying an SSH-signed commit needs a file naming the keys to trust, which is what this points at.
+#
+# The tilde form is deliberate: this file is committed, so an absolute path would publish a home directory and be
+# wrong on every other machine.
+#
+# Git expands `~/` in any setting that takes a pathname, which `git config --get --type=path` will show.
+#
+# The file it names is not committed, because it lists a person and belongs beside the keys it trusts.
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
