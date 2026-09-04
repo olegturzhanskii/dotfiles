@@ -110,8 +110,9 @@ vim.o.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
 
--- Show vertical guides at columns 80 and 120
-vim.o.colorcolumn = '80,120'
+-- Show vertical guides at the first forbidden column of each width boundary:
+--  79 for prose (Markdown and docstrings), 119 for code and comments.
+vim.o.colorcolumn = '79,119'
 
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
@@ -747,6 +748,19 @@ require('lazy').setup({
       formatters = {
         clang_format = {
           args = { '--style=Google' },
+        },
+        -- Taplo searches for `.taplo.toml` upward from its working directory, not from the file it is given, so
+        -- without this it only finds a project's config when Neovim happens to be started in that project.
+        --  The project config is what keeps a multi-line array from being collapsed back onto one line.
+        taplo = {
+          cwd = function(_, ctx) return vim.fs.root(ctx.dirname, { '.taplo.toml', 'taplo.toml' }) end,
+        },
+        -- yamlfmt drops blank lines by default, which flattens the one-entry-per-paragraph layout the same way taplo
+        -- flattens an array.
+        --  `retain_line_breaks_single` keeps a single blank line and collapses longer runs.
+        yamlfmt = {
+          prepend_args = { '-formatter', 'retain_line_breaks_single=true' },
+          cwd = function(_, ctx) return vim.fs.root(ctx.dirname, { '.yamlfmt', '.yamlfmt.yaml', '.yamlfmt.yml', 'yamlfmt.yaml', 'yamlfmt.yml' }) end,
         },
       },
     },
