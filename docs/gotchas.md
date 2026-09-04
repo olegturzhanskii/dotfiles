@@ -6,8 +6,8 @@ cause.
 Each one is a real trap rather than a mistake in the configuration, so each
 one is written down here with the fix that is already in place.
 
-They are in the order you meet them, from the terminal opening to the shell you
-end up living in.
+They are in the order you meet them, from the terminal opening to the shell
+you end up living in.
 
 ## `TERM=alacritty` does not resolve
 
