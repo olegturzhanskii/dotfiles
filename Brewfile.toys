@@ -3,7 +3,7 @@
 #
 # None of this is required, and bootstrap never installs it.
 #
-# It is here because a terminal is allowed to be enjoyable, and because someone reading a dotfiles repository deserves 
+# It is here because a terminal is allowed to be enjoyable, and because someone reading a dotfiles repository deserves
 # to find that out.
 #
 #     brew bundle install --file=Brewfile.toys

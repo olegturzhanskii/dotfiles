@@ -1,7 +1,7 @@
 # NOTE:
 # Tools required by the configuration in this repository.
 #
-# The rule is narrow on purpose: a tool belongs here only if removing it would break or degrade something this 
+# The rule is narrow on purpose: a tool belongs here only if removing it would break or degrade something this
 # repository actually configures.
 #
 # That keeps `brew bundle check --file=Brewfile` a real test.

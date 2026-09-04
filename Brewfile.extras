@@ -1,10 +1,10 @@
 # NOTE:
 # General-purpose command-line tools I use but do not configure here.
 #
-# Nothing in this repository depends on any of them, so they are kept out of the required Brewfile and bootstrap never 
+# Nothing in this repository depends on any of them, so they are kept out of the required Brewfile and bootstrap never
 # installs them.
 #
-# They are public because they are a genuine part of how I work, and because a list of good CLI tools is one of the 
+# They are public because they are a genuine part of how I work, and because a list of good CLI tools is one of the
 # more useful things a dotfiles repository can offer someone who is still assembling their own.
 #
 # Install them if you want them:
@@ -83,7 +83,7 @@ brew "bat-extras"           # batman, batgrep and friends, built on bat
 
 brew "moreutils"            # sponge, ts, vipe and friends; its parallel collides with GNU parallel
 
-brew "coreutils"            # the GNU tools macOS has no version of: timeout, nproc, numfmt, shuf, tac; the rest are 
+brew "coreutils"            # the GNU tools macOS has no version of: timeout, nproc, numfmt, shuf, tac; the rest are
 			    # g-prefixed
 
 brew "unp"                  # unpack anything without remembering which flags

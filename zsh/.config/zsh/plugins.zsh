@@ -2,11 +2,11 @@ typeset _zinit="$HOMEBREW_PREFIX/opt/zinit/zinit.zsh"
 
 if [[ -f "$_zinit" ]]; then
     # NOTE:
-    # zinit aliases zi, zpl, zplg and zini to itself, and zi is the one that matters: zoxide gives the same name to 
+    # zinit aliases zi, zpl, zplg and zini to itself, and zi is the one that matters: zoxide gives the same name to
     # its interactive jump, and an alias is expanded before a function is looked up, so zinit wins and zoxide's is
     # unreachable.
     #
-    # zinit reads this while being sourced and merges an existing ZINIT array rather than replacing it, so it has to 
+    # zinit reads this while being sourced and merges an existing ZINIT array rather than replacing it, so it has to
     # be set first.
     #
     # Everything below therefore calls zinit by its full name.
@@ -76,7 +76,7 @@ if [[ -f "$_zinit" ]]; then
     # for itself but none for cargo, and no package can know which tools uv has installed.
     #
     # Before adding a fourth, check whether $HOMEBREW_PREFIX/share/zsh/site-functions already has it.
-    typeset _go_completion_file="${ZINIT[PLUGINS_DIR]}/zsh-users---zsh-completions/src/_golang" 
+    typeset _go_completion_file="${ZINIT[PLUGINS_DIR]}/zsh-users---zsh-completions/src/_golang"
 
     zinit \
         as"null" \

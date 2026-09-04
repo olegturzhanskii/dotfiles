@@ -5,16 +5,16 @@
 
 # NOTE:
 # Private software list.
-# 
+#
 # Never commit this.
-# 
+#
 # Brewfile.optional.example is the tracked template; the real file is yours.
 Brewfile.optional
 
 
 # NOTE:
 # Local Git identity.
-# 
+#
 # Never commit this.
 git/.config/git/config.local
 
@@ -22,9 +22,9 @@ git/.config/git/config.local
 # NOTE:
 # Machine-generated state.
 #
-# With `stow --no-folding` these directories are created outside the repository, so in normal use nothing below should 
+# With `stow --no-folding` these directories are created outside the repository, so in normal use nothing below should
 # ever appear here.
-# 
+#
 # The rules stay as a safety net for a folded deployment, or for a stray run of a tool inside the repository.
 tmux/.config/tmux/plugins/
 
@@ -71,7 +71,7 @@ mc/.local/share/mc/mcedit/
 
 # NOTE:
 # Neovim runtime state.
-# 
+#
 # lazy-lock.json is deliberately NOT ignored: it is the only place where exact plugin versions are recorded.
 nvim/.config/nvim/spell/
 

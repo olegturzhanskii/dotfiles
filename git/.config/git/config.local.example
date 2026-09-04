@@ -5,7 +5,7 @@
 #
 #     cp ~/.config/git/config.local.example ~/.config/git/config.local
 #
-# config.local is not part of this repository and cannot be committed from it, because `stow --no-folding` makes 
+# config.local is not part of this repository and cannot be committed from it, because `stow --no-folding` makes
 # ~/.config/git a real directory rather than a link into the repository.
 #
 # Your commit email becomes public the moment you push.

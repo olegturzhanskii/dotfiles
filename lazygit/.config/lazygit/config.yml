@@ -1,5 +1,5 @@
 # NOTE:
-# lazygit rewrites this file when a setting it reads has been renamed upstream, and it writes through the symbolic 
+# lazygit rewrites this file when a setting it reads has been renamed upstream, and it writes through the symbolic
 # link rather than replacing it.
 #
 # Nothing turns that off, so a diff here after an upgrade is a real migration to read and keep, not a file dirtying

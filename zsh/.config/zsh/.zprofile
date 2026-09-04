@@ -4,7 +4,7 @@ if [[ -x "$_brew" ]]; then
     eval "$($_brew shellenv)"
 fi
 
-unset _brew 
+unset _brew
 
 
 typeset -U PATH path

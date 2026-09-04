@@ -35,7 +35,7 @@
 # NOTE:
 # Distinguishes moved lines from added and removed ones.
 #
-# difftastic compares syntax trees rather than lines, which delta cannot do because delta only redraws what Git 
+# difftastic compares syntax trees rather than lines, which delta cannot do because delta only redraws what Git
 # already computed.
 #
 # It is a difftool rather than the pager, so `git diff` keeps using delta and `git difftool` is a deliberate choice.
