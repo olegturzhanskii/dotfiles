@@ -99,3 +99,10 @@ brew "jrnl"                 # plain-text journal; an entry typed as an argument 
 
 brew "taskwarrior-tui"      # a front end for taskwarrior, which Brewfile declares
 
+
+# NOTE:
+# Audio and video.
+brew "yt-dlp"               # download video and audio from a URL
+
+brew "ffmpeg"               # convert, cut and remux audio and video; yt-dlp reaches for it to merge streams
+
