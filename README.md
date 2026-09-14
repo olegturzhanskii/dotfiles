@@ -31,6 +31,20 @@ You need an Apple Silicon Mac, the Xcode Command Line Tools
 Setup checks for all three and stops if any is missing rather than installing
 them for you.
 
+**Install Alacritty first.**
+
+Setup does not check for it, but it links the terminal description, the
+`alacritty` command and the manual pages that ship inside the app, and it can
+only do that if the app is already there.
+
+Homebrew disabled its Alacritty cask on 2026-09-01 because the app fails macOS
+Gatekeeper checks, so the `.dmg` comes from [the project's releases](https://github.com/alacritty/alacritty/releases).
+
+Move `Alacritty.app` into `/Applications` and open it once.
+
+macOS blocks that first launch; within about an hour, click **Open Anyway** in
+System Settings → Privacy & Security, and enter your login password.
+
 ## Setting it up
 
 ```sh
@@ -63,8 +77,8 @@ expects it, so `alacritty/.config/alacritty/alacritty.toml` becomes
 
 Editing either one changes both.
 
-**Generate what tools need** — the terminal description for Alacritty, tmux
-plugins, and the `tldr` page cache.
+**Generate what tools need** — Alacritty's terminal description, command and
+manual pages, tmux plugins, and the `tldr` page cache.
 
 ## What setup will not do
 

@@ -50,9 +50,10 @@ summary here would be.
 
 ## What the project promises
 
-Given an Apple Silicon Mac with the Xcode Command Line Tools, Homebrew, and a
-network connection, bootstrap installs every tool this repository declares,
-links every configuration file, and generates what the configuration needs.
+Given an Apple Silicon Mac with the Xcode Command Line Tools, Homebrew,
+Alacritty, and a network connection, bootstrap installs every tool this
+repository declares, links every configuration file, and generates what the
+configuration needs.
 
 Run `./bin/doctor` at any time to check the result.
 
@@ -76,7 +77,7 @@ Six managers install things on this machine, and each owns a distinct layer.
 ```mermaid
 flowchart TD
     B["Brewfile"] --> H["Homebrew"]
-    H --> T["Tools — alacritty, tmux, neovim, eza, bat"]
+    H --> T["Tools — tmux, neovim, eza, bat"]
     H --> M1["zinit"] --> P1["zsh plugins"]
     H --> M2["tpm"] --> P2["tmux plugins"]
     H --> M3["uv"] --> P3["uv tools"]

@@ -16,9 +16,10 @@
 
 
 # NOTE:
-# alacritty.toml names this font, so the two belong together.
-cask "alacritty"
-
+# alacritty.toml names this font.
+#
+# The terminal itself is not here: Homebrew disabled its alacritty cask on 2026-09-01, so README says how to install
+# it by hand, before setup.
 cask "font-jetbrains-mono-nerd-font"
 
 

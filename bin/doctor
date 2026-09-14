@@ -72,6 +72,16 @@ if command -v brew >/dev/null 2>&1; then
     fi
 fi
 
+# NOTE:
+# Alacritty is installed by hand, because Homebrew disabled its cask, so Brewfile cannot vouch for it.
+alacritty_app="/Applications/Alacritty.app"
+
+if [ -d "$alacritty_app" ]; then
+    ok "Alacritty is installed"
+else
+    report "Alacritty is not installed; see Before you start in the README"
+fi
+
 printf '\nConfiguration\n'
 
 if command -v stow >/dev/null 2>&1; then
@@ -126,8 +136,18 @@ else
     report "TERM=alacritty will not resolve; run ./scripts/40-derived-state.sh"
 fi
 
-if command -v alacritty >/dev/null 2>&1; then
-    if alacritty migrate --dry-run 2>&1 | grep -q 'nonexistent path'; then
+# NOTE:
+# Checked as the link setup makes rather than through PATH, so the result does not depend on the calling shell.
+if [ "$(readlink "$HOME/.local/bin/alacritty" 2>/dev/null)" = "$alacritty_app/Contents/MacOS/alacritty" ]; then
+    ok "the alacritty command is the app's own"
+else
+    report "the alacritty command is not linked from the app; run ./scripts/40-derived-state.sh"
+fi
+
+# NOTE:
+# The bundle is asked directly, so this check does not depend on the link above.
+if [ -x "$alacritty_app/Contents/MacOS/alacritty" ]; then
+    if "$alacritty_app/Contents/MacOS/alacritty" migrate --dry-run 2>&1 | grep -q 'nonexistent path'; then
         report "alacritty.toml imports a file that does not exist"
     else
         ok "alacritty configuration and its imports are readable"
