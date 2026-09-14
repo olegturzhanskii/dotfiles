@@ -76,7 +76,12 @@ mkcd() {
 if (( ${+commands[brew]} )); then
     typeset -U FPATH fpath
 
+    # NOTE:
+    # The completion inside the Alacritty app comes first, so nothing Homebrew left behind can answer for it.
     fpath=(
+        "/Applications/Alacritty.app/Contents/Resources/completions"(N-/)
+
+
         "$HOMEBREW_PREFIX/share/zsh/site-functions"
 
 
@@ -148,7 +153,9 @@ if (( ${+commands[brew]} )); then
 fi
 
 
-if (( ! ${+commands[alacritty]} )); then
+# NOTE:
+# Tested by path rather than by command, because the command is only a link that setup makes into the app.
+if [[ ! -d "/Applications/Alacritty.app" ]]; then
     unset TERMINFO
 fi
 
