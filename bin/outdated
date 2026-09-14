@@ -38,6 +38,35 @@ else
     printf '  not installed\n'
 fi
 
+section "Alacritty"
+
+# NOTE:
+# Installed by hand, so brew outdated cannot see it, and the project's latest GitHub release is asked instead.
+#
+# plutil reads JSON as well as property lists, so the answer needs nothing Homebrew installs.
+if [ -d /Applications/Alacritty.app ]; then
+    installed="$(
+        defaults read /Applications/Alacritty.app/Contents/Info.plist CFBundleShortVersionString 2>/dev/null
+    )"
+
+    latest="$(
+        curl -fsSL https://api.github.com/repos/alacritty/alacritty/releases/latest 2>/dev/null |
+            plutil -extract tag_name raw -o - - 2>/dev/null
+    )"
+
+    if [ -z "$latest" ]; then
+        printf '  %s installed; could not ask GitHub for the latest release\n' "$installed"
+    elif [ "v$installed" = "$latest" ]; then
+        printf '  up to date\n'
+    else
+        printf '  %s installed, %s released\n' "$installed" "$latest"
+
+        printf '  -> the new .dmg, installed as in the README, then ./scripts/40-derived-state.sh\n'
+    fi
+else
+    printf '  not installed\n'
+fi
+
 section "zsh plugins"
 
 printf '  zinit has no read-only check; updating is the only way to see changes\n'

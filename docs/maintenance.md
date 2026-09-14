@@ -41,6 +41,7 @@ below it.
 | What | Command |
 |---|---|
 | Homebrew itself | `brew update && brew upgrade` |
+| Alacritty | the new `.dmg`, installed as in the [README](../README.md#before-you-start), then `./scripts/40-derived-state.sh` |
 | Check tools still match `Brewfile` | `brew bundle check --file=Brewfile` |
 | zsh plugins | `zinit update --all` |
 | tmux plugins | `prefix + U` inside tmux |
