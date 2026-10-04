@@ -74,6 +74,8 @@ brew "shellcheck"           # shell linter, for use outside Neovim; the checks w
 
 brew "shfmt"                # shell formatter, and the other half of that workflow
 
+brew "gitleaks"             # finds secrets in a Git history; the checks workflow runs it too
+
 brew "cppman"               # C++ reference in the terminal
 
 
