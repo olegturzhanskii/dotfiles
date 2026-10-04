@@ -48,3 +48,37 @@ jobs:
           zsh -n zsh/.config/zsh/.zprofile
           zsh -n zsh/.config/zsh/.zshrc
           zsh -n zsh/.config/zsh/plugins.zsh
+
+  # NOTE:
+  # The repository promises that no secret appears in it, and this holds it to that across the whole history.
+  #
+  # It runs after a push, when anything it finds is already public, so a finding means rotating the secret, not only
+  # removing it; gitleaks redacts what it reports, so the log does not publish the secret a second time.
+  secrets:
+    runs-on: ubuntu-latest
+
+    steps:
+      # NOTE:
+      # The whole history rather than the last commit, because a secret removed later is still in the one before.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # NOTE:
+      # The release archive, checked against the digest `SHA256SUMS` records for it before anything is unpacked.
+      #
+      # A version with no line there fails the check, so an upgrade changes the version and the line together.
+      - name: Install gitleaks
+        env:
+          GITLEAKS_VERSION: "8.30.1"
+        run: |
+          archive="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          cd "$RUNNER_TEMP"
+          curl -sSfL -o "$archive" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/$archive"
+          awk -v name="$archive" '$2 == name' "$GITHUB_WORKSPACE/SHA256SUMS" | sha256sum --check --strict
+          tar -xzf "$archive" gitleaks
+
+      - name: gitleaks
+        run: |
+          "$RUNNER_TEMP/gitleaks" git --redact --no-banner --log-opts=--all .

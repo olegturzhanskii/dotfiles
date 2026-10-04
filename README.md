@@ -145,7 +145,8 @@ completion dumps.
 Setup links individual files rather than whole directories so that generated
 state has nowhere to land in this repository.
 
-**Secrets** appear nowhere in this design.
+**Secrets** appear nowhere in this design, and the checks workflow scans the whole
+history with [gitleaks](https://github.com/gitleaks/gitleaks) to keep that true.
 
 ## Things you have to do yourself
 
