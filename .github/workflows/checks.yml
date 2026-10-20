@@ -33,10 +33,14 @@ jobs:
       # NOTE:
       # Everything outside the zsh package is POSIX shell, which is what -s sh checks.
       - name: shellcheck
-        run: shellcheck -s sh bootstrap.sh scripts/*.sh bin/doctor bin/outdated
+        run: |
+          shellcheck -s sh bootstrap.sh scripts/*.sh bin/doctor bin/outdated \
+            .githooks/pre-commit .githooks/pre-push
 
       - name: shfmt
-        run: shfmt -d -i 4 bootstrap.sh scripts/*.sh bin/doctor bin/outdated
+        run: |
+          shfmt -d -i 4 bootstrap.sh scripts/*.sh bin/doctor bin/outdated \
+            .githooks/pre-commit .githooks/pre-push
 
       # NOTE:
       # These cannot be shellchecked, and a syntax error in any of them breaks every new shell.

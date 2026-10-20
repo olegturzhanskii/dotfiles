@@ -31,6 +31,43 @@ undoes the update.
 This is the only reversible update here, which is a good reason to look at the
 diff.
 
+## The hooks that hold the lockfile to what runs
+
+`.githooks` holds two Git hooks that check the one update recorded here, and Git
+runs them only in a clone that opts in:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+`./bin/doctor` says whether the clone in front of you has opted in.
+
+`pre-commit` checks the Neovim files a commit records, and only when the commit
+touches `nvim/.config/nvim`: a staged `lazy-lock.json` has to be valid JSON with a
+branch and a full commit hash for every plugin, and a staged Lua file has to
+compile.
+
+`pre-push` refuses a push while `lazy-lock.json` has changes that are not
+committed, or while the plugins installed here are at commits the pushed
+lockfile does not record.
+
+`./bin/doctor` makes the same comparison on demand, against the lockfile in the
+working tree, and `:Lazy restore` is the fix it names.
+
+Neither hook changes a file here, touches the network, or installs or updates
+anything, and each runs its check on cases with a known answer before it
+reports.
+
+While trying an update before committing it, push with `git push --no-verify`,
+which is also how to override either hook on purpose.
+
+Mason is left out, because it has no lockfile: nothing records which versions
+should be installed, so a hook would have nothing to compare.
+
+Whether anything newer exists is left out as well, because the answer needs
+the network and changes with the day rather than with the commit, so
+`./bin/outdated` stays the place to ask it.
+
 ## Everything else
 
 None of these change a file in this repository.

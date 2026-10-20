@@ -128,6 +128,14 @@ else
     report "GNU Stow is missing"
 fi
 
+# NOTE:
+# Git never enables a repository's hooks on its own, so this only says whether this clone has opted in.
+if [ "$(git -C "$REPOSITORY" config --get core.hooksPath 2>/dev/null)" = ".githooks" ]; then
+    ok "the repository's Git hooks are enabled"
+else
+    note "the repository's Git hooks are off; docs/maintenance.md says how to enable them"
+fi
+
 printf '\nDerived state\n'
 
 if infocmp alacritty >/dev/null 2>&1; then
@@ -158,6 +166,28 @@ if [ -d "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/plugins/tmux-gruvbox" ]; then
     ok "tmux plugins are installed"
 else
     note "tmux plugins are not installed; open tmux and press prefix + I"
+fi
+
+# NOTE:
+# lazy-lock.json is the one place this repository promises exact versions, so the plugins on disk are held to it.
+#
+# Neovim runs with --clean, so no plugin loads and nothing installs; the check only asks Git which commit each plugin
+# is on.
+lazy_plugins="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/lazy"
+
+if [ ! -d "$lazy_plugins" ]; then
+    note "Neovim plugins are not installed; opening nvim once installs them"
+elif ! command -v nvim >/dev/null 2>&1; then
+    report "nvim is missing, so the installed plugins cannot be compared with lazy-lock.json"
+elif differences="$(
+    nvim --clean --headless -l "$REPOSITORY/scripts/nvim-checks.lua" installed \
+        "$REPOSITORY/nvim/.config/nvim/lazy-lock.json" lazy-lock.json "$lazy_plugins" 2>&1
+)"; then
+    ok "Neovim plugins match lazy-lock.json"
+else
+    report "Neovim plugins differ from lazy-lock.json; run :Lazy restore"
+
+    printf '%s\n' "$differences" | head -n 10 | sed 's/^/        /'
 fi
 
 printf '\nPublication safety\n'

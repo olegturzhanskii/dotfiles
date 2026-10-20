@@ -1,0 +1,66 @@
+#!/bin/sh
+#
+# NOTE:
+# Check the Neovim files a commit is about to record, and nothing else.
+#
+# This hook is provided by the repository but is not active by default, because Git never enables a hook from a clone
+# on its own; docs/maintenance.md says how to opt in.
+#
+# It reads what is staged rather than the working tree, because the staged version is what the commit records.
+#
+# A commit that touches nothing under nvim/.config/nvim passes at once, without starting Neovim.
+#
+# It never changes a file, never touches the network, and never installs or updates a plugin or a Mason tool.
+#
+# To bypass it deliberately for one commit, use `git commit --no-verify`.
+
+set -u
+
+configuration="nvim/.config/nvim"
+
+lockfile="$configuration/lazy-lock.json"
+
+staged="$(git diff --cached --name-only --diff-filter=ACMR -- "$configuration")"
+
+if [ -z "$staged" ]; then
+    exit 0
+fi
+
+if ! command -v nvim >/dev/null 2>&1; then
+    printf 'pre-commit: nvim is needed to check the staged Neovim files, and it is not installed\n' >&2
+
+    exit 1
+fi
+
+checks="$(git rev-parse --show-toplevel)/scripts/nvim-checks.lua"
+
+scratch="$(mktemp -d)"
+
+trap 'rm -rf "$scratch"' EXIT
+
+failed=0
+
+# NOTE:
+# One path per line, which holds because nothing under nvim/.config/nvim has a newline in its name.
+while IFS= read -r path; do
+    case "$path" in
+    "$lockfile")
+        git show ":$path" >"$scratch/lazy-lock.json"
+
+        nvim --clean --headless -l "$checks" format "$scratch/lazy-lock.json" "$path" || failed=1
+        ;;
+    *.lua)
+        git show ":$path" >"$scratch/staged.lua"
+
+        nvim --clean --headless -l "$checks" syntax "$scratch/staged.lua" "$path" || failed=1
+        ;;
+    esac
+done <<EOF
+$staged
+EOF
+
+if [ "$failed" -ne 0 ]; then
+    printf 'pre-commit: fix the staged Neovim file above, or commit with --no-verify to record it anyway\n' >&2
+
+    exit 1
+fi
