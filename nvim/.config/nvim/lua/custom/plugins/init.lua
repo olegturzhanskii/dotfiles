@@ -12,4 +12,20 @@ return {
     ---@type render.md.UserConfig
     opts = {},
   },
+
+  -- NOTE:
+  -- Mermaid is previewed in the browser, because Alacritty cannot show images, so no plugin can draw a diagram here.
+  --
+  -- previm runs no server: it writes a page, opens it as a file, and the page reloads the rendered text by itself.
+  --
+  -- The page goes under the cache directory instead of into previm's own checkout, and previm removes it on exit.
+  {
+    'previm/previm',
+    ft = 'markdown',
+    init = function()
+      vim.g.previm_open_cmd = 'open'
+      vim.g.previm_enable_realtime = 1
+      vim.g.previm_custom_preview_base_dir = vim.fn.stdpath 'cache' .. '/previm'
+    end,
+  },
 }
