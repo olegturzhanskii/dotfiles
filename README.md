@@ -200,6 +200,31 @@ If you came here for one specific thing rather than for a setup.
 | Does a `Brewfile` have to list everything I have installed? | [design.md](docs/design.md#what-belongs-in-the-brewfile) |
 | How reproducible is this without Nix, and where does reproducibility stop? | [design.md](docs/design.md#what-the-project-promises) |
 
+## Who made it, and how
+
+Generative AI did a substantial part of the engineering work on this
+repository, through models of two families: Claude, by [Anthropic](https://www.anthropic.com), and GPT,
+by [OpenAI](https://openai.com).
+
+The configuration itself is largely my own: which tools make up the
+environment, how each is set up, and what the setup should leave alone were
+decided, and for the most part written, by me.
+
+The models' part came on top of that, and it was a large one: Claude models
+extended and refined the configuration, investigated how a tool behaves before
+a setting relied on it, wrote the checks and the hooks, and improved the
+documentation, including the write-ups of the traps it records.
+
+GPT models worked with me on the reasoning: what the environment should do,
+whether a workaround deserved to stay, and what the documentation still left
+unsaid.
+
+Each change was reviewed before it was committed, and tested as the change
+called for: a script by running it, a setting by working with it.
+
+The environment and the decisions behind it are mine, and so is the
+responsibility for them.
+
 ## Reading further
 
 [docs/design.md](docs/design.md) — how the project is put together and what it
