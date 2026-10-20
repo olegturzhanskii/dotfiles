@@ -101,6 +101,8 @@ brew "agg"                  # turn one of those recordings into a gif
 
 brew "jrnl"                 # plain-text journal; an entry typed as an argument lands in your shell history
 
+brew "tectonic"             # typeset LaTeX into PDF; it downloads TeX files the first time a document needs them
+
 brew "taskwarrior-tui"      # a front end for taskwarrior, which Brewfile declares
 
 
