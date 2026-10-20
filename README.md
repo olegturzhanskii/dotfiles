@@ -3,6 +3,8 @@
 My command-line environment: the configuration for my terminal, shell, editor,
 and the tools I use with them.
 
+[![checks](https://github.com/olegturzhanskii/dotfiles/actions/workflows/checks.yml/badge.svg)](https://github.com/olegturzhanskii/dotfiles/actions/workflows/checks.yml)
+
 It also holds enough to rebuild that environment on a new Mac without my
 having to remember how I assembled it the first time.
 
