@@ -90,6 +90,8 @@ brew "coreutils"            # the GNU tools macOS has no version of: timeout, np
 
 brew "unp"                  # unpack anything without remembering which flags
 
+brew "unar"                 # unar and lsar, for the RAR archives unp cannot unpack without RARLAB's rar or unrar
+
 
 # NOTE:
 # Recording and writing.

@@ -1,6 +1,6 @@
 # When something looks broken
 
-Eight things in this environment fail in a way that does not point at the
+Nine things in this environment fail in a way that does not point at the
 cause.
 
 Each one is a real trap rather than a mistake in the configuration, so each
@@ -312,3 +312,39 @@ exits, because no mechanism in zsh can reach across running shells.
 [`zsh/.config/zsh/plugins.zsh`](../zsh/.config/zsh/plugins.zsh) handles the two cases it can reach: it clears
 the binding in the shell that ran the uninstall, and a new shell never learns
 the completion at all.
+
+## `unp` cannot unpack a RAR archive
+
+**Symptom.**
+
+`unp something.rar` stops with `Error, following packages must be installed in
+order to proceed:` and names `rar or unrar or unrar-free or 7zip-rar`, none of
+which Homebrew offers.
+
+**Cause.**
+
+`unp` unpacks nothing itself: it picks a rule by the file's extension, or by
+what `file` reports when no extension matches, and runs the tools that rule
+names.
+
+Its RAR rule names only `rar`, `unrar`, and a command called `7zip`, and when none
+of them is on the `PATH` it stops there, so its 7-Zip rule, which also lists
+RAR, is never tried.
+
+Homebrew removed the `unrar` formula over its license and disabled the `rar` cask
+because it fails Gatekeeper, and none of its 7-Zip formulae installs a command
+called `7zip`, so Homebrew cannot satisfy the rule.
+
+**Fix.**
+
+Call `unar` directly for a RAR archive: it recognizes the format itself and
+unpacks RAR4 and RAR5 without any of the tools `unp` asks for.
+
+```sh
+lsar something.rar   # list what is inside
+unar something.rar   # unpack it
+```
+
+[`Brewfile.extras`](../Brewfile.extras) installs `unar`, and `unp` stays the one command for every other
+format; it never hands a RAR archive to `unar`, so installing `unar` does not make
+`unp something.rar` work.
