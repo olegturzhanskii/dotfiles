@@ -92,6 +92,8 @@ brew "unp"                  # unpack anything without remembering which flags
 
 brew "unar"                 # unar and lsar, for the RAR archives unp cannot unpack without RARLAB's rar or unrar
 
+brew "poppler"              # pdftotext, pdfinfo and friends: the text a PDF holds, and what kind of PDF it is
+
 
 # NOTE:
 # Recording and writing.
